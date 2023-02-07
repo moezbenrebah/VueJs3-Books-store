@@ -12,18 +12,18 @@ const getStoredBook = () => {
   const error = ref(null);
 
   // handle upload book and cover book functionality to firebase storage
-  const handleUploadBook = async (coverBook, book) => {
+  const handleUploadBook = async (bookCover, book) => {
     // create a book cover path in the firebase storage
-    bookCoverPath.value = `covers/${user.value.uid}/${coverBook.name}`;
+    bookCoverPath.value = `covers/${user.value.uid}/${bookCover.name}`;
     // create a book path in the firebase storage
     bookPath.value = `book/${user.value.uid}/${book.name}`;
 
-    // Create a coverBook and book path from firebase
-    const coverBooksStorage = projectStorage.ref(bookCoverPath.value);
+    // Create a bookCover and book path from firebase
+    const bookCoverStorage = projectStorage.ref(bookCoverPath.value);
     const bookPathStorage = projectStorage.ref(bookPath.value);
 
     try {
-      const response1 = await coverBooksStorage.put(coverBook);
+      const response1 = await bookCoverStorage.put(bookCover);
       const response2 = await bookPathStorage.put(book);
       url1.value = await response1.ref.getDownloadURL();
       // store the download book url from the firebase
@@ -36,7 +36,7 @@ const getStoredBook = () => {
   };
 
   // handle delete the book and the cover book
-  const handleDeleteCover = async (bookPath, coverPath) => {
+  const deleteBookAndCover = async (bookPath, coverPath) => {
     const bookPathRef = projectStorage.ref(bookPath);
     const coverPathRef = projectStorage.ref(coverPath);
 
@@ -56,7 +56,7 @@ const getStoredBook = () => {
     url2,
     error,
     handleUploadBook,
-    handleDeleteCover,
+    deleteBookAndCover,
   };
 };
 
