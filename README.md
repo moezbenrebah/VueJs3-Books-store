@@ -1,5 +1,3 @@
-# abab
-
 ## Project setup
 ```
 npm install
